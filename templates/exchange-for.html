@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>User-Home - BookSwap</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/boxicons/css/boxicons.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/glightbox/css/glightbox.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/remixicon/remixicon.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.css') }}">
+
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+      <h1 class="logo me-auto"><a href="{{ url_for('userhome') }}">BookSwap<span>.</span></a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt=""></a>-->
+
+      <a href="/logout" class="get-started-btn scrollto">Logout</a>
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+        <div class="row">
+
+            <div class="col order-first">
+              <h6>{{ user.fname }}'s Bookshelf </h6>
+              <h2>Select a Book to exchange with {{ book_1.bname }}</h2>
+            </div>
+            <div class="col col-2 entries">
+              <span>{{ user.fname }}</span> <span>{{ user.lname }}</span>
+            
+              <h6>{{ user.email }}</h6>
+            </div>
+
+        </div>
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Books Section ======= -->
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+          <div class="col-lg-8 entries">
+            {% if books %}
+              {% for book in books %}
+            
+                <article class="entry" style="padding: 5px 40px 20px 40px">
+                  <h2 class="entry-title">
+                    <h2>{{ book.bname }}</h2>
+                  </h2>
+                  
+                  
+                  </br>
+                  <div class="entry-content">
+                    <div class="read-more">
+                      <form action="{{ url_for('exchange_data') }}" method="post">
+                        <input type="hidden" name="book_id_1" value="{{ book_1.book_id }}">
+                        <input type="hidden" name="book_id_2" value="{{ book.book_id }}">
+                        <input type="submit" value="Exchange with this book" 
+                        style=
+                        "display: inline-block; 
+                        background: #e03a3c;
+                        color: #fff;
+                        border-color: #e03a3c;
+                        padding: 6px 20px;
+                        transition: 0.3s;
+                        font-size: 14px;
+                        border-radius: 4px;">
+                      </form>
+                    </div>
+                  </div>
+                </article><!-- End book entry -->
+            
+            {% endfor %}
+          {% else %}
+            <p>Sorry, there are no books in your Bookshelf yet.</p>
+          {% endif %} 
+          </div><!-- End book entries list -->
+
+          <div class="col-lg-4">
+
+            <div class="sidebar">
+
+              <h3 class="sidebar-title">Search</h3>
+              <div class="sidebar-item search-form">
+                <form action="", >
+                  <input type="text", placeholder="Search by Title">
+                  <button type="submit"><i class="bi bi-search"></i></button>
+                </form>
+              </div>
+              <div class="sidebar-item search-form">
+                <form action="", >
+                  <input type="text", placeholder="Search by Category">
+                  <button type="submit"><i class="bi bi-search"></i></button>
+                </form>
+              </div>
+              <div class="sidebar-item search-form">
+                <form action="", >
+                  <input type="text", placeholder="Search by Author">
+                  <button type="submit"><i class="bi bi-search"></i></button>
+                </form>
+              </div>
+              <!-- End sidebar search formn-->
+
+            </div><!-- End sidebar -->
+
+          </div><!-- End Search sidebar -->
+
+        </div>
+
+      </div>
+    </section>
+    <!-- End Books Section -->
+
+  </main><!-- End #main -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
