@@ -1,14 +1,11 @@
-
-
-
-from flask import Flask, render_template, request, redirect, url_for, session
+from bookexchange import app
+from flask import render_template, request, redirect, url_for, session
 from bookexchange.models import *
 from sqlalchemy import desc
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'my_secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root@localhost:5432/bookexchange'
-db.init_app(app)
+# app.config['SECRET_KEY'] = 'my_secret_key'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root@localhost:5432/bookexchange'
+# db.init_app(app)
 
 # Home-page
 @app.route("/")
