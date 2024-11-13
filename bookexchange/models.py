@@ -5,12 +5,12 @@ db = SQLAlchemy()
 # Reader
 class Reader(db.Model):
     reader_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    fname = db.Column(db.String(20), nullable=False)
-    lname = db.Column(db.String(20), nullable=False)
+    fname = db.Column(db.String(64), nullable=False)
+    lname = db.Column(db.String(64), nullable=False)
     age = db.Column(db.Integer)
     pincode = db.Column(db.Integer, nullable=False)
-    email = db.Column(db.String(20), nullable=False, unique=True)
-    password = db.Column(db.String(20), nullable=False)
+    email = db.Column(db.String(64), nullable=False, unique=True)
+    password = db.Column(db.String(128), nullable=False)
 
     def __init__(self, fname, lname, age, pincode, email, password):
         self.fname = fname
@@ -27,7 +27,7 @@ class Reader(db.Model):
 # Author
 class Author(db.Model):
     book_id = db.Column(db.Integer, primary_key=True)
-    auth_name = db.Column(db.String(30), nullable=False, primary_key=True)
+    auth_name = db.Column(db.String(64), nullable=False, primary_key=True)
 
     def __init__(self, book_id, auth_name):
         self.book_id = book_id
@@ -40,9 +40,9 @@ class Author(db.Model):
 # Book
 class Book(db.Model):
     book_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    bname = db.Column(db.String(30), nullable=False)
+    bname = db.Column(db.String(64), nullable=False)
     pub_year = db.Column(db.Integer)
-    category = db.Column(db.String(50))
+    category = db.Column(db.String(64))
     shelf_id = db.Column(db.Integer)
     pincode = db.Column(db.Integer)
 
@@ -60,9 +60,9 @@ class Book(db.Model):
 # Location
 class Location(db.Model):
     pincode = db.Column(db.Integer, primary_key=True)
-    locname = db.Column(db.String(20), nullable=False)
-    city = db.Column(db.String(30), nullable=False)
-    state = db.Column(db.String(30), nullable=True)
+    locname = db.Column(db.String(64), nullable=False)
+    city = db.Column(db.String(64), nullable=False)
+    state = db.Column(db.String(64), nullable=True)
 
     def __init__(self, pincode, locname, city, state):
         self.pincode = pincode
