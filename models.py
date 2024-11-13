@@ -2,8 +2,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-#database model
-
 # Reader
 class Reader(db.Model):
     reader_id = db.Column(db.Integer, primary_key=True, autoincrement=True)

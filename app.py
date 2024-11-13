@@ -1,5 +1,5 @@
 import os.path
-
+import os
 from flask import Flask, render_template, request, redirect, url_for, session
 from models import *
 from sqlalchemy import desc
@@ -9,7 +9,7 @@ app.secret_key = 'your_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root@localhost:5432/bookexchange'
 db.init_app(app)
 
-# Home-page (Logged-out)
+# Home-page
 @app.route("/")
 def index():
     book_count = Book.query.count()
@@ -28,18 +28,18 @@ def signup():
 
 @app.route('/signup-data', methods=['POST'])
 def signup_data():
-    fname = request.form['fname']           #First Name
-    lname = request.form['lname']           #Last Name
-    age = request.form['age']               #Age
-    pincode = request.form['pincode']       #Pincode
-    email = request.form['email']           #Email
-    password = request.form['password']     #Password
+    fname = request.form['fname']
+    lname = request.form['lname']
+    age = request.form['age']
+    pincode = request.form['pincode']
+    email = request.form['email']
+    password = request.form['password']
     new_reader= Reader(fname=fname, lname=lname, age=age, pincode=pincode, email=email, password=password)
     location = Location.query.filter_by(pincode=pincode).first()
     if location is None:
-        locname = request.form['locname']   #Location Name
-        city = request.form['city']         #City
-        state = request.form['state']       #State
+        locname = request.form['locname']
+        city = request.form['city']
+        state = request.form['state']
         location = Location(pincode=pincode, locname=locname, city=city, state=state)
         db.session.add(location)
     db.session.add(new_reader)
@@ -203,7 +203,7 @@ def delete_book():
         db.session.commit()
         return redirect(url_for('my_book_shelf'))
     else:
-        print('Book not found!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        print('Book not found!!')
         return redirect(url_for('my_book_shelf'))
 
 
@@ -257,7 +257,6 @@ def requests():
             reader_2_names.append(reader_2.fname + " " + reader_2.lname)
 
             book_2_ele = Book.query.filter_by(book_id=request.book_2).first()
-            print('000000000000000000000000000000000000000000000000000000000')
             print(book_2_ele.bname)
             book_2.append(book_2_ele.bname)
             book_1_ele = Book.query.filter_by(book_id=request.book_1).first()
