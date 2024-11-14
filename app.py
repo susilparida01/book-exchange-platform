@@ -11,21 +11,19 @@ def index():
     reader_count = Reader.query.count()
     location_count = Location.query.count()
     last_tuple = Exchange.query.order_by(desc(Exchange.exch_id)).first()
-    # exchange_count = last_tuple.exch_id
     exchange_count = last_tuple.exch_id if last_tuple is not None else 'null'
 
     return render_template('index.html', book_count=book_count, reader_count=reader_count, location_count=location_count,exchange_count=exchange_count)
 
-
 # Signup
 @app.route("/signup", methods= ["GET","POST"])
 def signup():
-    return render_template('signupform.html')
+    return render_template('signup.html')
 
 @app.route('/signup-data', methods=['POST'])
 def signup_data():
-    f_name = request.form['f_name']
-    l_name = request.form['l_name']
+    fname = request.form['fname']
+    lname = request.form['lname']
     age = request.form['age']
     pincode = request.form['pincode']
     email = request.form['email']
@@ -58,7 +56,7 @@ def login():
         else:
             return 'Invalid Login Credentials' 
     else:
-        return render_template('loginform.html')
+        return render_template('login.html')
 
 
 # Logout
@@ -84,7 +82,7 @@ def userhome():
         book_authors = {}
         for book in books:
             book_authors[book.book_id] = Author.query.filter_by(book_id=book.book_id).all()
-        return render_template('user-home.html', books=books, book_authors=book_authors, city=location.city, user= user)
+        return render_template('home.html', books=books, book_authors=book_authors, city=location.city, user= user)
     else:
         return redirect(url_for('login'))
 
@@ -100,7 +98,7 @@ def my_book_shelf():
         book_authors = {}
         for book in books:
             book_authors[book.book_id] = Author.query.filter_by(book_id=book.book_id).all()
-        return render_template('my-book-shelf.html', books=books, book_authors=book_authors, user=user)
+        return render_template('bookShelf.html', books=books, book_authors=book_authors, user=user)
     else:
         return redirect(url_for('login'))
 
@@ -108,7 +106,7 @@ def my_book_shelf():
 # add-New-Book
 @app.route('/add-new-book')
 def add_new_book():
-    return render_template('add-new-book.html')
+    return render_template('addBook.html')
 
 @app.route('/add-book', methods=['POST'])
 def add_book():
@@ -150,7 +148,7 @@ def edit_book():
     book = Book.query.filter_by(book_id=book_id).first()
     authors = Author.query.filter_by(book_id=book_id).first()
 
-    return render_template('edit-book.html',book=book, authors=authors)
+    return render_template('editBook.html',book=book, authors=authors)
 
 @app.route('/edit-data', methods=['POST'])
 def edit_data():
@@ -212,7 +210,7 @@ def exchange_for(book_id):
         
         book_shelf = Book_shelf.query.filter_by(reader_id=user.reader_id).first()
         books = Book.query.filter_by(shelf_id=book_shelf.shelf_id).all()
-        return render_template('exchange-for.html', books=books, user=user, book_id=book_id, book_1=book_1)
+        return render_template('exchange.html', books=books, user=user, book_id=book_id, book_1=book_1)
     else:
         return redirect(url_for('login'))
 
