@@ -92,10 +92,10 @@ class Exchange(db.Model):
     __tablename__ = 'exchange'
 
     exch_id = db.Column(db.Integer, primary_key=True)
-    reader_1 = db.Column(db.Integer, db.ForeignKey('reader.reader_id'))
-    reader_2 = db.Column(db.Integer, db.ForeignKey('reader.reader_id'))
-    book_1 = db.Column(db.Integer, db.ForeignKey('book.book_id'))
-    book_2 = db.Column(db.Integer, db.ForeignKey('book.book_id'))
+    reader_1 = db.Column(db.Integer, db.ForeignKey('readers.reader_id'))
+    reader_2 = db.Column(db.Integer, db.ForeignKey('readers.reader_id'))
+    book_1 = db.Column(db.Integer, db.ForeignKey('books.book_id'))
+    book_2 = db.Column(db.Integer, db.ForeignKey('books.book_id'))
     
     def __init__(self, reader_1, reader_2, book_1, book_2):
         self.reader_1 = reader_1

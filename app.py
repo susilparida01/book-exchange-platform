@@ -3,10 +3,7 @@ from flask import render_template, request, redirect, url_for, session
 from bookexchange.models import *
 from sqlalchemy import desc
 
-# app.config['SECRET_KEY'] = 'my_secret_key'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root@localhost:5432/bookexchange'
-# db.init_app(app)
-
+################################################################################################
 # Home-page
 @app.route("/")
 def index():
@@ -26,8 +23,8 @@ def signup():
 
 @app.route('/signup-data', methods=['POST'])
 def signup_data():
-    fname = request.form['fname']
-    lname = request.form['lname']
+    f_name = request.form['f_name']
+    l_name = request.form['l_name']
     age = request.form['age']
     pincode = request.form['pincode']
     email = request.form['email']
@@ -203,7 +200,6 @@ def delete_book():
     else:
         print('Book not found!!')
         return redirect(url_for('my_book_shelf'))
-
 
 # Exchange-Book
 @app.route('/exchange-for/<book_id>')
