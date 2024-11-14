@@ -5,19 +5,19 @@ from bookexchange import db
 # Reader
 class Reader(db.Model):
 
-    __tablename__ = 'readers'
+    __tablename__ = 'reader'
 
     reader_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    f_name = db.Column(db.String(64), nullable=False)
-    l_name = db.Column(db.String(64), nullable=False)
+    fname = db.Column(db.String(64), nullable=False)
+    lname = db.Column(db.String(64), nullable=False)
     age = db.Column(db.Integer)
     pincode = db.Column(db.Integer, nullable=False)
     email = db.Column(db.String(64), nullable=False, unique=True)
     password = db.Column(db.String(128), nullable=False)
 
-    def __init__(self, f_name, l_name, age, pincode, email, password):
-        self.f_name = f_name
-        self.l_name = l_name
+    def __init__(self, fname, lname, age, pincode, email, password):
+        self.fname = fname
+        self.lname = lname
         self.age = age
         self.pincode = pincode
         self.email = email
@@ -26,11 +26,10 @@ class Reader(db.Model):
     def __repr__(self):
         return '<Reader %r>' % self.email
 
-
 # Author
 class Author(db.Model):
 
-    __tablename__ = 'authors'
+    __tablename__ = 'author'
 
     book_id = db.Column(db.Integer, primary_key=True)
     auth_name = db.Column(db.String(64), nullable=False, primary_key=True)
@@ -46,7 +45,7 @@ class Author(db.Model):
 # Book
 class Book(db.Model):
 
-    __tablename__ = 'books'
+    __tablename__ = 'book'
 
     book_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     bname = db.Column(db.String(64), nullable=False)
@@ -69,7 +68,7 @@ class Book(db.Model):
 # Location
 class Location(db.Model):
 
-    __tablename__ = 'locations'
+    __tablename__ = 'location'
 
     pincode = db.Column(db.Integer, primary_key=True)
     loc_name = db.Column(db.String(64), nullable=False)
@@ -92,10 +91,10 @@ class Exchange(db.Model):
     __tablename__ = 'exchange'
 
     exch_id = db.Column(db.Integer, primary_key=True)
-    reader_1 = db.Column(db.Integer, db.ForeignKey('readers.reader_id'))
-    reader_2 = db.Column(db.Integer, db.ForeignKey('readers.reader_id'))
-    book_1 = db.Column(db.Integer, db.ForeignKey('books.book_id'))
-    book_2 = db.Column(db.Integer, db.ForeignKey('books.book_id'))
+    reader_1 = db.Column(db.Integer, db.ForeignKey('reader.reader_id'))
+    reader_2 = db.Column(db.Integer, db.ForeignKey('reader.reader_id'))
+    book_1 = db.Column(db.Integer, db.ForeignKey('book.book_id'))
+    book_2 = db.Column(db.Integer, db.ForeignKey('book.book_id'))
     
     def __init__(self, reader_1, reader_2, book_1, book_2):
         self.reader_1 = reader_1
