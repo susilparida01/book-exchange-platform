@@ -11,7 +11,8 @@ def index():
     reader_count = Reader.query.count()
     location_count = Location.query.count()
     last_tuple = Exchange.query.order_by(desc(Exchange.exch_id)).first()
-    exchange_count = last_tuple.exch_id
+    # exchange_count = last_tuple.exch_id
+    exchange_count = last_tuple.exch_id if last_tuple is not None else 'null'
 
     return render_template('index.html', book_count=book_count, reader_count=reader_count, location_count=location_count,exchange_count=exchange_count)
 
